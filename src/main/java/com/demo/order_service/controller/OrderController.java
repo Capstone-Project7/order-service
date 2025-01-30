@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/orders")
+@CrossOrigin("http://localhost:5173")
 public class OrderController {
 
     @Autowired
@@ -57,6 +58,12 @@ public class OrderController {
     public ResponseEntity<List<OrderEntity>> getOrdersByCustomerId(@PathVariable int customerId) {
         List<OrderEntity> orders = orderService.getOrderByCustomerId(customerId);
         return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateAmount")
+    public ResponseEntity<OrderEntity> updateOrderAmount(@RequestBody OrderEntity updatedOrder) {
+        OrderEntity orderEntity = orderService.updateAmountOrder(updatedOrder);
+        return new ResponseEntity<>(orderEntity, HttpStatus.OK);
     }
 
     // Create a new order
