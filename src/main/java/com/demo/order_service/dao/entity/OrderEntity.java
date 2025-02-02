@@ -1,6 +1,7 @@
 package com.demo.order_service.dao.entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -26,10 +27,19 @@ public class OrderEntity {
 	private int orderId;
 	
 	@Column(name="order_date")
-	private Date orderDate;
+	// private Date orderDate;
+	private LocalDate orderDate;
+
 	
 	@Column(name="delivery_date")
-	private Date deliveryDate;
+	// private Date deliveryDate;
+	private LocalDate deliveryDate;
+
+	
+	@Column(name="order_amount")
+	// private Date deliveryDate;
+	private double orderAmount;
+
 	
 	@Column(name="customer_id")
 	private int customerId;	

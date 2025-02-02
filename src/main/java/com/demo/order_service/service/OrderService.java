@@ -1,5 +1,6 @@
 package com.demo.order_service.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +25,18 @@ public class OrderService {
 	}
 	
 	public OrderEntity createOrder(OrderEntity newOrder) {
+		newOrder.setOrderDate(LocalDate.now());
+		newOrder.setOrderAmount(0);
 		return orderRepo.saveAndFlush(newOrder);
+	}
+
+	public OrderEntity updateAmountOrder(OrderEntity newOrder) {
+		OrderEntity orderEntity = orderRepo.findById(newOrder.getOrderId()).orElse(null);
+		if(orderEntity != null) {
+			orderEntity.setOrderAmount(newOrder.getOrderAmount() + orderEntity.getOrderAmount());
+            return orderRepo.save(orderEntity);
+		}
+		return null;
 	}
 	
 	public List<OrderEntity> getOrderByCustomerId(int customerId) {
