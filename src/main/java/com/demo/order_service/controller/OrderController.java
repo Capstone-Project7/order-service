@@ -72,4 +72,15 @@ public class OrderController {
         OrderEntity createdOrder = orderService.createOrder(newOrder);
         return new ResponseEntity<>(createdOrder, HttpStatus.OK);
     }
+
+    @GetMapping("/v1/{orderId}")
+    public ResponseEntity<OrderEntity> getOrderDetails(@PathVariable int orderId) {
+        Optional<OrderEntity> order = orderService.getOrderById(orderId);
+        if (order.isPresent()) {
+            return ResponseEntity.ok(order.get());  // Returning status 200 (OK)
+        } else {
+            return ResponseEntity.status(404).body(null);  // Returning status 404 (Not Found)
+        }
+    }
+
 }
